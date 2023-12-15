@@ -1,2 +1,50 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+/.mvn/
+/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+/.gradle/buildOutputCleanup/cache.properties
+/.gradle/checksums/checksums.lock
+/.gradle/6.6.1/fileHashes/fileHashes.lock
+/.gradle/6.6.1/gc.properties
+/.gradle/configuration-cache/gc.properties
+/.gradle/vcs-1/gc.properties
+/.gradle/6.6.1/fileChanges/last-build.bin
 
 .odo
+*.dtmp
+*.bkp
+target/booking-service-0.0.1-SNAPSHOT.jar
+target/booking-service-0.0.1-SNAPSHOT.jar
+target/booking-service-0.0.1-SNAPSHOT.jar
+target/booking-service-0.0.1-SNAPSHOT.jar.original
+target/surefire-reports
+target/surefire-reports
