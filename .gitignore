@@ -42,11 +42,4 @@ build/
 .odo
 *.dtmp
 *.bkp
-target/booking-service-0.0.1-SNAPSHOT.jar
-target/booking-service-0.0.1-SNAPSHOT.jar
-target/booking-service-0.0.1-SNAPSHOT.jar
-target/booking-service-0.0.1-SNAPSHOT.jar.original
-target/surefire-reports
-target/surefire-reports
-target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
-target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+.gitignore
