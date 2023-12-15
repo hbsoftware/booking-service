@@ -1,0 +1,27 @@
+[
+    {
+        "cinemaid": 1,
+        "name": "PVR",
+        "cityid": 1
+    },
+    {
+        "cinemaid": 2,
+        "name": "CINEPOLIS",
+        "cityid": 1
+    },
+    {
+        "cinemaid": 3,
+        "name": "Big Cinemas",
+        "cityid": 1
+    },
+    {
+        "cinemaid": 4,
+        "name": "Big Cinemas",
+        "cityid": 1
+    },
+    {
+        "cinemaid": 5,
+        "name": "Big Cinemas",
+        "cityid": 1
+    }
+]

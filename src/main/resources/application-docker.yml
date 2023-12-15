@@ -1,0 +1,42 @@
+server:
+  port: 8081
+spring:
+  h2:
+    console:
+      enabled: true
+  docker:
+    compose:
+      enabled: false
+      file: ./docker/docker-compose.yaml
+  #  devtools:
+  #    add-properties: false
+  #    restart:
+  #        enabled: false
+  #    remote:
+  #     restart:
+  #      enabled: false
+  application:
+    name: booking-service
+  
+cinema:
+  service:
+   url: http://host.docker.internal:8080
+management:
+  metrics:
+   tags:
+    application: booking-service
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+springdoc:
+ packages-to-scan: com.assign.ps.controller
+ api-docs:
+  enabled: true
+  path: /booking-service
+ swagger-ui:
+  enabled: true
+  tryItOutEnabled: true
+  operationsSorter: method
+  tagsSorter: alpha
+  filter: true
