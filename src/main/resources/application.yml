@@ -20,7 +20,7 @@ spring:
   
 cinema:
   service:
-   url: http://localhost:8080
+   url: http://cinema-service.hb-butalia-dev.svc.cluster.local:8080
 management:
   metrics:
    tags:
