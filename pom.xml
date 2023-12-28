@@ -40,8 +40,8 @@
 		<dependency>
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
-		</dependency>
-		<dependency>
+		 </dependency>
+		<!-- <dependency>
 			<groupId>io.opentelemetry.instrumentation</groupId>
 			<artifactId>opentelemetry-spring-boot-starter</artifactId>
     		<version>1.32.0-alpha</version>
@@ -50,13 +50,13 @@
 			<groupId>io.opentelemetry.instrumentation</groupId>
 			<artifactId>opentelemetry-logback-mdc-1.0</artifactId>
     		<version>1.32.0-alpha</version>
-		</dependency>
+		</dependency> -->
 <!-- https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-exporters-prometheus -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>io.opentelemetry</groupId>
 			<artifactId>opentelemetry-exporters-prometheus</artifactId>
 			<version>0.9.1</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -207,7 +207,7 @@
 						<controller>
 	
 				<env>
-			   		<CINEMA_SERVICE_URL>https://cinema-service-hb-butalia-ibm-dev.apps.sandbox-m3.1530.p1.openshiftapps.com</CINEMA_SERVICE_URL>
+			   		<CINEMA_SERVICE_URL>http://cinema-service:8080</CINEMA_SERVICE_URL>
 
 				</env>
 				</controller>
