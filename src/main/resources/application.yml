@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 spring:
   h2:
     console:
@@ -20,7 +20,7 @@ spring:
   
 cinema:
   service:
-   url: http://cinema-service.hb-butalia-dev.svc.cluster.local:8080
+   url: ${CINEMA_SERVICE_URL}
 management:
   metrics:
    tags:
