@@ -41,7 +41,7 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		 </dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>io.opentelemetry.instrumentation</groupId>
 			<artifactId>opentelemetry-spring-boot-starter</artifactId>
     		<version>1.32.0-alpha</version>
@@ -50,13 +50,12 @@
 			<groupId>io.opentelemetry.instrumentation</groupId>
 			<artifactId>opentelemetry-logback-mdc-1.0</artifactId>
     		<version>1.32.0-alpha</version>
-		</dependency> -->
-<!-- https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-exporters-prometheus -->
-		<!-- <dependency>
+		</dependency> 
+		 <dependency>
 			<groupId>io.opentelemetry</groupId>
 			<artifactId>opentelemetry-exporters-prometheus</artifactId>
 			<version>0.9.1</version>
-		</dependency> -->
+		</dependency> 
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -208,7 +207,7 @@
 	
 				<env>
 			   		<CINEMA_SERVICE_URL>http://cinema-service:8080</CINEMA_SERVICE_URL>
-
+					<OTEL_EXPORTER_OTLP_ENDPOINT>http://jaeger-all-in-one-inmemory-collector.openshift-distributed-tracing.svc.cluster.local:4317</OTEL_EXPORTER_OTLP_ENDPOINT>
 				</env>
 				</controller>
 					</resources>
