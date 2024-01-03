@@ -1,29 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
-	<logger name="com.assign.ps" level="${LOG_LEVEL:-DEBUG}" />
-	<if condition='isNull("LOG_FORMAT") || property("LOG_FORMAT").equalsIgnoreCase("plain")'>
-		<then>
-			<appender name="PLAIN"
-				class="ch.qos.logback.core.ConsoleAppender">
-				<encoder>
-					<pattern>${CONSOLE_LOG_PATTERN}</pattern>
-					<charset>utf8</charset>
-				</encoder>
-			</appender>
-			<root level="${LOG_LEVEL:-DEBUG}">
-				<appender-ref  ref="PLAIN" />
-			</root>
-		</then>
-	</if>
-	<if condition='property("LOG_FORMAT").equalsIgnoreCase("json")'>
-		<then>
-			<appender name="JSON" class="ch.qos.logback.core.ConsoleAppender">
-				<encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-			</appender>
-			<root level="${LOG_LEVEL:-DEBUG}">
-				<appender-ref ref="JSON" />
-			</root>
-		</then>
-	</if>
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} trace_id=%X{trace_id} span_id=%X{span_id}	trace_flags=%X{trace_flags} %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- Just wrap your logging appender, for example ConsoleAppender, with 
+		OpenTelemetryAppender -->
+	<appender name="OTEL"
+		class="io.opentelemetry.instrumentation.logback.mdc.v1_0.OpenTelemetryAppender">
+		<appender-ref ref="CONSOLE" />
+	</appender>
+
+	<!-- Use the wrapped "OTEL" appender instead of the original "CONSOLE" one -->
+	<root level="INFO">
+		<appender-ref ref="OTEL" />
+	</root>
+
 </configuration>
+<!-- <?xml version="1.0" encoding="UTF-8"?> <configuration> <include resource="org/springframework/boot/logging/logback/defaults.xml"/> 
+	<logger name="com.assign.ps" level="${LOG_LEVEL:-DEBUG}"/> <if condition='isNull("LOG_FORMAT") 
+	|| property("LOG_FORMAT").equalsIgnoreCase("plain")'> <then> <appender name="PLAIN" 
+	class="ch.qos.logback.core.ConsoleAppender"> <encoder> <pattern>${CONSOLE_LOG_PATTERN}</pattern> 
+	<charset>utf8</charset> </encoder> </appender> <root level="DEBUG"> <appender-ref 
+	ref="PLAIN"/> </root> </then> </if> <if condition='property("LOG_FORMAT").equalsIgnoreCase("json")'> 
+	<then> <appender name="JSON" class="ch.qos.logback.core.ConsoleAppender"> 
+	<encoder class="net.logstash.logback.encoder.LogstashEncoder"/> </appender> 
+	<root level="INFO"> <appender-ref ref="JSON"/> </root> </then> </if> </configuration> -->
+
+<!-- 
+	<?xml version="1.0" encoding="UTF-8"?> <configuration> <include resource="org/springframework/boot/logging/logback/defaults.xml"/> 
+	<logger name="com.assign.ps" level="${LOG_LEVEL:-DEBUG}"/> <if condition='isNull("LOG_FORMAT") 
+	|| property("LOG_FORMAT").equalsIgnoreCase("plain")'> <then> <appender name="PLAIN" 
+	class="ch.qos.logback.core.ConsoleAppender"> <encoder> <pattern>${CONSOLE_LOG_PATTERN}</pattern> 
+	<charset>utf8</charset> </encoder> </appender> <root level="DEBUG"> <appender-ref 
+	ref="PLAIN"/> </root> </then> </if> <if condition='property("LOG_FORMAT").equalsIgnoreCase("json")'> 
+	<then> <appender name="JSON" class="ch.qos.logback.core.ConsoleAppender"> 
+	<encoder class="net.logstash.logback.encoder.LogstashEncoder"/> </appender> 
+	<root level="INFO"> <appender-ref ref="JSON"/> </root> </then> </if> </configuration> -->
