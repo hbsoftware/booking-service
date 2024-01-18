@@ -22,9 +22,13 @@ cinema:
   service:
    url: ${CINEMA_SERVICE_URL}
 management:
-  metrics:
-   tags:
-    application: booking-service
+  endpoint:
+    metrics:
+      enabled: true
+  prometheus:
+   metrics:
+    export:
+     enabled: true
   endpoints:
     web:
       exposure:
