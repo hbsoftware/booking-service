@@ -24,9 +24,19 @@ pipeline {
 			}
 		}
 
-		stage('Deploy') {
+		stage('oc:build') {
 			steps {
-			    bat "mvn jar:jar deploy:deploy"
+			    bat "mvn oc:build -Popenshift"
+			}
+		}
+        stage('oc:resource') {
+			steps {
+			    bat "mvn oc:resource -Popenshift"
+			}
+		}
+        stage('oc:apply') {
+			steps {
+			    bat "mvn oc:apply -Popenshift"
 			}
 		}
 	}
