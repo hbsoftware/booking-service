@@ -1,0 +1,22 @@
+﻿kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: prom-config
+  namespace: default
+  uid: 950eb147-21b3-4e61-a940-4de9954a8576
+  creationTimestamp: '2024-01-22T05:12:36Z'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-22T05:40:55Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:binaryData':
+          .: {}
+          'f:prometheus.yml': {}
+        'f:immutable': {}
+immutable: false
+binaryData:
+  prometheus.yml: >-
+    Z2xvYmFsOg0KICBzY3JhcGVfaW50ZXJ2YWw6ICAgICA1cw0KICBldmFsdWF0aW9uX2ludGVydmFsOiA1cw0Kc2NyYXBlX2NvbmZpZ3M6DQogIC0gam9iX25hbWU6ICdib29raW5nLXNlcnZpY2UnDQogICAgbWV0cmljc19wYXRoOiAnL2FjdHVhdG9yL3Byb21ldGhldXMnDQogICAgc3RhdGljX2NvbmZpZ3M6DQogICAgLSB0YXJnZXRzOiBbJ2Jvb2tpbmctc2VydmljZS1kZWZhdWx0LmFwcHMtY3JjLnRlc3RpbmcnXQ0KICAtIGpvYl9uYW1lOiAnY2luZW1hLXNlcnZpY2UnDQogICAgbWV0cmljc19wYXRoOiAnL2FjdHVhdG9yL3Byb21ldGhldXMnDQogICAgc3RhdGljX2NvbmZpZ3M6DQogICAgLSB0YXJnZXRzOiBbJ2NpbmVtYS1zZXJ2aWNlLWRlZmF1bHQuYXBwcy1jcmMudGVzdGluZydd

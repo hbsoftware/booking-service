@@ -1,0 +1,54 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: prometheus
+  namespace: default
+  uid: dc2f697c-b93c-4224-a11e-a74e9eb3bf56
+  resourceVersion: '169364'
+  creationTimestamp: '2024-01-05T11:43:49Z'
+  annotations:
+    openshift.io/host.generated: 'true'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-01-05T11:43:49Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:port':
+            .: {}
+            'f:targetPort': {}
+          'f:to':
+            'f:kind': {}
+            'f:name': {}
+            'f:weight': {}
+          'f:wildcardPolicy': {}
+    - manager: openshift-router
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-01-05T11:43:49Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:ingress': {}
+      subresource: status
+spec:
+  host: prometheus-default.apps-crc.testing
+  to:
+    kind: Service
+    name: prometheus
+    weight: 100
+  port:
+    targetPort: 9090
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: prometheus-default.apps-crc.testing
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2024-01-05T11:43:49Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: router-default.apps-crc.testing
