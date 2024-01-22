@@ -4,7 +4,6 @@ metadata:
   name: grafana
   namespace: default
   uid: bb0b0e55-c742-4174-a5ee-f12c6475dac4
-  resourceVersion: '89375'
   creationTimestamp: '2024-01-22T06:50:01Z'
   annotations:
     openshift.io/host.generated: 'true'

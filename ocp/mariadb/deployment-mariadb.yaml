@@ -3,7 +3,6 @@ apiVersion: apps/v1
 metadata:
   annotations:
     deployment.kubernetes.io/revision: '1'
-  resourceVersion: '137264'
   name: mariadb
   uid: 7b79597f-58de-40a8-be5d-64317f551bdf
   creationTimestamp: '2024-01-22T04:13:02Z'

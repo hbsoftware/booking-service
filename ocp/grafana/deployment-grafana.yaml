@@ -3,7 +3,6 @@ apiVersion: apps/v1
 metadata:
   annotations:
     deployment.kubernetes.io/revision: '2'
-  resourceVersion: '125953'
   name: grafana
   uid: 9031b3d0-5842-4f19-b25b-6a3a1f15c868
   creationTimestamp: '2024-01-22T06:32:01Z'

@@ -4,7 +4,6 @@ metadata:
   name: mariadb
   namespace: default
   uid: 2d8c4283-d667-4071-b62f-c10f88ea92bf
-  resourceVersion: '58611'
   creationTimestamp: '2024-01-22T04:16:05Z'
   managedFields:
     - manager: Mozilla

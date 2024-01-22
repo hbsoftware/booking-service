@@ -4,7 +4,6 @@ metadata:
   name: grafana
   namespace: default
   uid: e2da43c3-7dbc-4fdf-8ddb-03e6dd9cbf24
-  resourceVersion: '89607'
   creationTimestamp: '2024-01-22T06:47:49Z'
   managedFields:
     - manager: Mozilla
