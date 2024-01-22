@@ -1,0 +1,1031 @@
+﻿apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    olm.skipRange: '>=5.6.0-0 <5.8.2'
+    features.operators.openshift.io/token-auth-azure: 'false'
+    operators.openshift.io/valid-subscription: '["OpenShift Container Platform", "OpenShift Platform Plus"]'
+    operators.operatorframework.io/builder: operator-sdk-unknown
+    features.operators.openshift.io/token-auth-gcp: 'false'
+    operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
+    certified: 'false'
+    operatorframework.io/properties: >-
+      {"properties":[{"type":"olm.gvk","value":{"group":"logging.openshift.io","kind":"Elasticsearch","version":"v1"}},{"type":"olm.gvk","value":{"group":"logging.openshift.io","kind":"Kibana","version":"v1"}},{"type":"olm.maxOpenShiftVersion","value":4.15},{"type":"olm.package","value":{"packageName":"elasticsearch-operator","version":"5.8.2"}}]}
+    features.operators.openshift.io/token-auth-aws: 'false'
+    support: 'AOS Cluster Logging, Jaeger'
+    operatorframework.io/cluster-monitoring: 'true'
+    operators.openshift.io/infrastructure-features: '["disconnected","proxy-aware"]'
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "logging.openshift.io/v1",
+          "kind": "Elasticsearch",
+          "metadata": {
+            "name": "elasticsearch"
+          },
+          "spec": {
+            "indexManagement": {
+              "mappings": [
+                {
+                  "aliases": [
+                    "infra",
+                    "logs.infra"
+                  ],
+                  "name": "infra",
+                  "policyRef": "infra-policy"
+                }
+              ],
+              "policies": [
+                {
+                  "name": "infra-policy",
+                  "phases": {
+                    "delete": {
+                      "minAge": "2d",
+                      "namespaceSpec": [
+                        {
+                          "minAge": "5h",
+                          "namespace": "openshift-monitoring"
+                        }
+                      ],
+                      "pruneNamespacesInterval": "24h"
+                    },
+                    "hot": {
+                      "actions": {
+                        "rollover": {
+                          "maxAge": "8h"
+                        }
+                      }
+                    }
+                  },
+                  "pollInterval": "30m"
+                }
+              ]
+            },
+            "managementState": "Managed",
+            "nodeSpec": {
+              "resources": {
+                "limits": {
+                  "memory": "1Gi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "512Mi"
+                }
+              }
+            },
+            "nodes": [
+              {
+                "nodeCount": 1,
+                "roles": [
+                  "client",
+                  "data",
+                  "master"
+                ],
+                "storage": {
+                  "size": "20G"
+                }
+              }
+            ],
+            "redundancyPolicy": "ZeroRedundancy"
+          }
+        },
+        {
+          "apiVersion": "logging.openshift.io/v1",
+          "kind": "Kibana",
+          "metadata": {
+            "name": "kibana"
+          },
+          "spec": {
+            "managementState": "Managed",
+            "nodeSelector": {},
+            "replicas": 1,
+            "resources": {
+              "limits": {
+                "memory": "512Mi"
+              },
+              "requests": {
+                "memory": "512Mi"
+              }
+            }
+          }
+        }
+      ]
+    capabilities: Full Lifecycle
+    features.operators.openshift.io/fips-compliant: 'false'
+    olm.operatorNamespace: openshift-operators-redhat
+    containerImage: >-
+      registry.redhat.io/openshift-logging/elasticsearch-rhel9-operator@sha256:3230b2a35fc19467ba16e0f01f4756f6cbc514922a5869d79563d265379b1865
+    createdAt: '2023-12-06T07:03:48Z'
+    categories: 'OpenShift Optional, Logging & Tracing'
+    features.operators.openshift.io/proxy-aware: 'true'
+    operatorframework.io/suggested-namespace: openshift-operators-redhat
+    description: >
+      The Elasticsearch Operator for OCP provides a means for configuring and
+      managing an Elasticsearch cluster for tracing and cluster logging.
+
+      ## Prerequisites and Requirements
+
+      ### Elasticsearch Operator Namespace
+
+      The Elasticsearch Operator must be deployed to the global operator group
+      namespace
+
+      ### Memory Considerations
+
+      Elasticsearch is a memory intensive application.  The initial
+
+      set of OCP nodes may not be large enough to support the Elasticsearch
+      cluster.  Additional OCP nodes must be added
+
+      to the OCP cluster if you desire to run with the recommended (or better)
+      memory. Each ES node can operate with a
+
+      lower memory setting though this is not recommended for production
+      deployments.
+    olm.operatorGroup: openshift-operators-redhat-lklnv
+    features.operators.openshift.io/disconnected: 'true'
+    features.operators.openshift.io/tls-profiles: 'false'
+  resourceVersion: '170703'
+  name: elasticsearch-operator.v5.8.2
+  uid: bf94fd43-9c6f-4a66-9eb4-7bb16d27922e
+  creationTimestamp: '2024-01-22T04:43:26Z'
+  generation: 1
+  managedFields:
+    - apiVersion: operators.coreos.com/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:features.operators.openshift.io/token-auth-aws': {}
+            'f:olm.operatorNamespace': {}
+            'f:operators.openshift.io/infrastructure-features': {}
+            'f:createdAt': {}
+            'f:features.operators.openshift.io/proxy-aware': {}
+            'f:alm-examples': {}
+            'f:description': {}
+            'f:olm.operatorGroup': {}
+            'f:capabilities': {}
+            'f:features.operators.openshift.io/fips-compliant': {}
+            'f:olm.skipRange': {}
+            .: {}
+            'f:operators.openshift.io/valid-subscription': {}
+            'f:containerImage': {}
+            'f:categories': {}
+            'f:operatorframework.io/suggested-namespace': {}
+            'f:operators.operatorframework.io/project_layout': {}
+            'f:features.operators.openshift.io/disconnected': {}
+            'f:features.operators.openshift.io/tls-profiles': {}
+            'f:certified': {}
+            'f:operatorframework.io/properties': {}
+            'f:features.operators.openshift.io/token-auth-azure': {}
+            'f:operators.operatorframework.io/builder': {}
+            'f:features.operators.openshift.io/token-auth-gcp': {}
+            'f:support': {}
+            'f:operatorframework.io/cluster-monitoring': {}
+          'f:labels':
+            .: {}
+            'f:olm.copiedFrom': {}
+            'f:operatorframework.io/arch.amd64': {}
+            'f:operatorframework.io/arch.arm64': {}
+            'f:operatorframework.io/arch.ppc64le': {}
+            'f:operatorframework.io/arch.s390x': {}
+        'f:spec':
+          'f:version': {}
+          'f:maturity': {}
+          'f:provider':
+            .: {}
+            'f:name': {}
+          'f:links': {}
+          'f:install':
+            .: {}
+            'f:spec':
+              .: {}
+              'f:clusterPermissions': {}
+              'f:deployments': {}
+            'f:strategy': {}
+          'f:maintainers': {}
+          'f:description': {}
+          'f:installModes': {}
+          'f:minKubeVersion': {}
+          'f:icon': {}
+          'f:customresourcedefinitions':
+            .: {}
+            'f:owned': {}
+          .: {}
+          'f:relatedImages': {}
+          'f:cleanup':
+            .: {}
+            'f:enabled': {}
+          'f:apiservicedefinitions': {}
+          'f:replaces': {}
+          'f:displayName': {}
+          'f:keywords': {}
+      manager: olm
+      operation: Update
+      time: '2024-01-22T04:43:26Z'
+    - apiVersion: operators.coreos.com/v1alpha1
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:lastUpdateTime': {}
+          'f:requirementStatus': {}
+          'f:phase': {}
+          'f:lastTransitionTime': {}
+          'f:conditions': {}
+          .: {}
+          'f:cleanup': {}
+          'f:message': {}
+          'f:reason': {}
+      manager: olm
+      operation: Update
+      subresource: status
+      time: '2024-01-22T13:57:04Z'
+  namespace: default
+  labels:
+    olm.copiedFrom: openshift-operators-redhat
+    operatorframework.io/arch.amd64: supported
+    operatorframework.io/arch.arm64: supported
+    operatorframework.io/arch.ppc64le: supported
+    operatorframework.io/arch.s390x: supported
+spec:
+  customresourcedefinitions:
+    owned:
+      - description: An Elasticsearch cluster instance
+        displayName: Elasticsearch
+        kind: Elasticsearch
+        name: elasticsearches.logging.openshift.io
+        resources:
+          - kind: ConfigMap
+            name: ''
+            version: v1
+          - kind: CronJob
+            name: ''
+            version: v1
+          - kind: Deployment
+            name: ''
+            version: v1
+          - kind: Pod
+            name: ''
+            version: v1
+          - kind: PrometheusRule
+            name: ''
+            version: v1
+          - kind: ReplicaSet
+            name: ''
+            version: v1
+          - kind: Role
+            name: ''
+            version: v1
+          - kind: RoleBinding
+            name: ''
+            version: v1
+          - kind: Route
+            name: ''
+            version: v1
+          - kind: Service
+            name: ''
+            version: v1
+          - kind: ServiceAccount
+            name: ''
+            version: v1
+          - kind: ServiceMonitor
+            name: ''
+            version: v1
+          - kind: StatefulSet
+            name: ''
+            version: v1
+          - kind: persistentvolumeclaims
+            name: ''
+            version: v1
+        specDescriptors:
+          - description: The resource requirements for the Elasticsearch nodes
+            displayName: Resource Requirements
+            path: nodeSpec.resources
+            x-descriptors:
+              - 'urn:alm:descriptor:com.tectonic.ui:resourceRequirements'
+        statusDescriptors:
+          - description: The number of Active Primary Shards for the Elasticsearch Cluster
+            displayName: Active Primary Shards
+            path: cluster.activePrimaryShards
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+          - description: The number of Active Shards for the Elasticsearch Cluster
+            displayName: Active Shards
+            path: cluster.activeShards
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+          - description: The number of Initializing Shards for the Elasticsearch Cluster
+            displayName: Initializing Shards
+            path: cluster.initializingShards
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+          - description: The number of Data Nodes for the Elasticsearch Cluster
+            displayName: Number of Data Nodes
+            path: cluster.numDataNodes
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+          - description: The number of Nodes for the Elasticsearch Cluster
+            displayName: Number of Nodes
+            path: cluster.numNodes
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+          - description: The number of Relocating Shards for the Elasticsearch Cluster
+            displayName: Relocating Shards
+            path: cluster.relocatingShards
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+          - description: The current Status of the Elasticsearch Cluster
+            displayName: Status
+            path: cluster.status
+            x-descriptors:
+              - 'urn:alm:descriptor:io.kubernetes.phase'
+          - description: The number of Unassigned Shards for the Elasticsearch Cluster
+            displayName: Unassigned Shards
+            path: cluster.unassignedShards
+            x-descriptors:
+              - 'urn:alm:descriptor:text'
+        version: v1
+      - description: Kibana instance
+        displayName: Kibana
+        kind: Kibana
+        name: kibanas.logging.openshift.io
+        resources:
+          - kind: ConfigMap
+            name: ''
+            version: v1
+          - kind: ConsoleExternalLogLink
+            name: ''
+            version: v1
+          - kind: ConsoleLink
+            name: ''
+            version: v1
+          - kind: Deployment
+            name: ''
+            version: v1
+          - kind: Role
+            name: ''
+            version: v1
+          - kind: RoleBinding
+            name: ''
+            version: v1
+          - kind: Route
+            name: ''
+            version: v1
+          - kind: Service
+            name: ''
+            version: v1
+          - kind: ServiceAccount
+            name: ''
+            version: v1
+        specDescriptors:
+          - description: The node selector to use for the Kibana Visualization component
+            displayName: Kibana Node Selector
+            path: nodeSelector
+            x-descriptors:
+              - 'urn:alm:descriptor:com.tectonic.ui:nodeSelector'
+          - description: The desired number of Kibana Pods for the Visualization component
+            displayName: Kibana Size
+            path: replicas
+            x-descriptors:
+              - 'urn:alm:descriptor:com.tectonic.ui:podCount'
+          - description: The resource requirements for the Kibana nodes
+            displayName: Kibana Resource Requirements
+            path: resources
+        statusDescriptors:
+          - description: >-
+              The status for each of the Kibana pods for the Visualization
+              component
+            displayName: Kibana Status
+            path: pods
+            x-descriptors:
+              - 'urn:alm:descriptor:com.tectonic.ui:podStatuses'
+        version: v1
+  relatedImages:
+    - image: >-
+        registry.redhat.io/openshift-logging/elasticsearch-rhel9-operator@sha256:3230b2a35fc19467ba16e0f01f4756f6cbc514922a5869d79563d265379b1865
+      name: >-
+        elasticsearch-rhel9-operator-3230b2a35fc19467ba16e0f01f4756f6cbc514922a5869d79563d265379b1865-annotation
+    - image: >-
+        registry.redhat.io/openshift4/ose-kube-rbac-proxy@sha256:d6f8680b8868bad5ac497bb38776b5a9d6f8f2c4d35441c68fcf468841ca41fb
+      name: kube-rbac-proxy
+    - image: >-
+        registry.redhat.io/openshift-logging/elasticsearch-rhel9-operator@sha256:3230b2a35fc19467ba16e0f01f4756f6cbc514922a5869d79563d265379b1865
+      name: elasticsearch-operator
+    - image: >-
+        registry.redhat.io/openshift-logging/elasticsearch-proxy-rhel9@sha256:911ee3f26ae71eab71bf2a1455d1c2ea871cddc78a51189e3ad2f18f63bd3d91
+      name: elasticsearch_proxy
+    - image: >-
+        registry.redhat.io/openshift-logging/elasticsearch6-rhel9@sha256:3ad088cbfcfb006d87762e96a70ff989e75d49872954347f7efe34d9529c1b7a
+      name: elasticsearch
+    - image: >-
+        registry.redhat.io/openshift-logging/kibana6-rhel8@sha256:055b40047fda0d120543d88327699809fedc8bedbc1cedf415348bad2e2fb5bf
+      name: kibana
+    - image: >-
+        registry.redhat.io/openshift-logging/logging-curator5-rhel9@sha256:4099ba73e0986fc8d6a077679a453bae3620640da113fad69774112ad9bc2a60
+      name: curator
+  cleanup:
+    enabled: false
+  apiservicedefinitions: {}
+  keywords:
+    - elasticsearch
+    - jaeger
+  displayName: OpenShift Elasticsearch Operator
+  provider:
+    name: Red Hat
+  maturity: alpha
+  installModes:
+    - supported: true
+      type: OwnNamespace
+    - supported: false
+      type: SingleNamespace
+    - supported: false
+      type: MultiNamespace
+    - supported: true
+      type: AllNamespaces
+  version: 5.8.2
+  icon:
+    - base64data: >-
+        PHN2ZyBpZD0iYWZiNDE1NDktYzU3MC00OWI3LTg1Y2QtNjU3NjAwZWRmMmUxIiBkYXRhLW5hbWU9IkxheWVyIDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmlld0JveD0iMCAwIDcyMS4xNSA3MjEuMTUiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuYTQ0OGZkZWEtNGE0Yy00Njc4LTk3NmEtYzM3ODUzMDhhZTA2IHsKICAgICAgICBmaWxsOiAjZGIzOTI3OwogICAgICB9CgogICAgICAuZTEzMzA4YjgtNzQ4NS00Y2IwLTk3NjUtOGE1N2I5M2Y5MWE2IHsKICAgICAgICBmaWxsOiAjY2IzNzI4OwogICAgICB9CgogICAgICAuZTc3Mjg2ZjEtMjJkYS00NGQxLThlZmItMWQxNGIwY2NhZTYyIHsKICAgICAgICBmaWxsOiAjZmZmOwogICAgICB9CgogICAgICAuYTA0MjBjYWMtZWJlNi00YzE4LWI5ODEtYWJiYTBiYTliMzY1IHsKICAgICAgICBmaWxsOiAjZTVlNWU0OwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvZGVmcz4KICA8Y2lyY2xlIGNsYXNzPSJhNDQ4ZmRlYS00YTRjLTQ2NzgtOTc2YS1jMzc4NTMwOGFlMDYiIGN4PSIzNjAuNTgiIGN5PSIzNjAuNTgiIHI9IjM1OC4yOCIvPgogIDxwYXRoIGNsYXNzPSJlMTMzMDhiOC03NDg1LTRjYjAtOTc2NS04YTU3YjkzZjkxYTYiIGQ9Ik02MTMuNTQsMTA3LjMsMTA2Ljg4LDYxNGMxNDAsMTM4LjUxLDM2NS44MiwxMzguMDYsNTA1LjI2LTEuMzlTNzUyLDI0Ny4zMyw2MTMuNTQsMTA3LjNaIi8+CiAgPGc+CiAgICA8Y2lyY2xlIGNsYXNzPSJlNzcyODZmMS0yMmRhLTQ0ZDEtOGVmYi0xZDE0YjBjY2FlNjIiIGN4PSIyMzQuNyIgY3k9IjM1Ny4zIiByPSI0Ny43MiIvPgogICAgPGNpcmNsZSBjbGFzcz0iZTc3Mjg2ZjEtMjJkYS00NGQxLThlZmItMWQxNGIwY2NhZTYyIiBjeD0iMjM0LjciIGN5PSIxODIuOTQiIHI9IjQ3LjcyIi8+CiAgICA8Y2lyY2xlIGNsYXNzPSJlNzcyODZmMS0yMmRhLTQ0ZDEtOGVmYi0xZDE0YjBjY2FlNjIiIGN4PSIyMzQuNyIgY3k9IjUzOC4yMSIgcj0iNDcuNzIiLz4KICA8L2c+CiAgPHBvbHlnb24gY2xhc3M9ImU3NzI4NmYxLTIyZGEtNDRkMS04ZWZiLTFkMTRiMGNjYWU2MiIgcG9pbnRzPSI0MzUuMTkgMzQ3LjMgMzkwLjU0IDM0Ny4zIDM5MC41NCAxNzIuOTQgMzE2LjE2IDE3Mi45NCAzMTYuMTYgMTkyLjk0IDM3MC41NCAxOTIuOTQgMzcwLjU0IDM0Ny4zIDMxNi4xNiAzNDcuMyAzMTYuMTYgMzY3LjMgMzcwLjU0IDM2Ny4zIDM3MC41NCA1MjEuNjcgMzE2LjE2IDUyMS42NyAzMTYuMTYgNTQxLjY3IDM5MC41NCA1NDEuNjcgMzkwLjU0IDM2Ny4zIDQzNS4xOSAzNjcuMyA0MzUuMTkgMzQ3LjMiLz4KICA8cG9seWdvbiBjbGFzcz0iZTc3Mjg2ZjEtMjJkYS00NGQxLThlZmItMWQxNGIwY2NhZTYyIiBwb2ludHM9IjU5OS43NCAzMTcuMDMgNTU3Ljk3IDMxNy4wMyA1NTAuOTcgMzE3LjAzIDU1MC45NyAzMTAuMDMgNTUwLjk3IDI2OC4yNiA1NTAuOTcgMjY4LjI2IDQ2NC4zNiAyNjguMjYgNDY0LjM2IDQ0Ni4zNCA1OTkuNzQgNDQ2LjM0IDU5OS43NCAzMTcuMDMgNTk5Ljc0IDMxNy4wMyIvPgogIDxwb2x5Z29uIGNsYXNzPSJhMDQyMGNhYy1lYmU2LTRjMTgtYjk4MS1hYmJhMGJhOWIzNjUiIHBvaW50cz0iNTk5Ljc0IDMxMC4wMyA1NTcuOTcgMjY4LjI2IDU1Ny45NyAzMTAuMDMgNTk5Ljc0IDMxMC4wMyIvPgo8L3N2Zz4K
+      mediatype: image/svg+xml
+  minKubeVersion: 1.18.3
+  links:
+    - name: Elastic
+      url: 'https://www.elastic.co/'
+    - name: Elasticsearch Operator
+      url: 'https://github.com/openshift/elasticsearch-operator'
+  install:
+    spec:
+      clusterPermissions:
+        - rules:
+            - nonResourceURLs:
+                - /metrics
+              verbs:
+                - get
+            - apiGroups:
+                - apps
+              resources:
+                - daemonsets
+                - deployments
+                - replicasets
+                - statefulsets
+              verbs:
+                - '*'
+            - apiGroups:
+                - apps
+              resourceNames:
+                - elasticsearch-operator
+              resources:
+                - deployments/finalizers
+              verbs:
+                - update
+            - apiGroups:
+                - authentication.k8s.io
+              resources:
+                - subjectaccessreviews
+                - tokenreviews
+              verbs:
+                - create
+            - apiGroups:
+                - authorization.k8s.io
+              resources:
+                - subjectaccessreviews
+              verbs:
+                - create
+            - apiGroups:
+                - batch
+              resources:
+                - cronjobs
+              verbs:
+                - '*'
+            - apiGroups:
+                - config.openshift.io
+              resources:
+                - oauths
+                - proxies
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - console.openshift.io
+              resources:
+                - consoleexternalloglinks
+                - consolelinks
+              verbs:
+                - create
+                - delete
+                - get
+                - update
+            - apiGroups:
+                - coordination.k8s.io
+              resources:
+                - leases
+              verbs:
+                - create
+                - get
+                - update
+            - apiGroups:
+                - ''
+              resources:
+                - configmaps
+                - endpoints
+                - events
+                - persistentvolumeclaims
+                - pods
+                - pods/exec
+                - secrets
+                - serviceaccounts
+                - services
+                - services/finalizers
+              verbs:
+                - '*'
+            - apiGroups:
+                - image.openshift.io
+              resources:
+                - imagestreams
+              verbs:
+                - get
+                - list
+                - watch
+            - apiGroups:
+                - logging.openshift.io
+              resources:
+                - '*'
+              verbs:
+                - '*'
+            - apiGroups:
+                - monitoring.coreos.com
+              resources:
+                - prometheusrules
+                - servicemonitors
+              verbs:
+                - '*'
+            - apiGroups:
+                - networking.k8s.io
+              resources:
+                - networkpolicies
+              verbs:
+                - create
+                - delete
+            - apiGroups:
+                - oauth.openshift.io
+              resources:
+                - oauthclients
+              verbs:
+                - '*'
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - clusterrolebindings
+                - clusterroles
+              verbs:
+                - '*'
+            - apiGroups:
+                - rbac.authorization.k8s.io
+              resources:
+                - rolebindings
+                - roles
+              verbs:
+                - '*'
+            - apiGroups:
+                - route.openshift.io
+              resources:
+                - routes
+                - routes/custom-host
+              verbs:
+                - '*'
+            - apiGroups:
+                - security.openshift.io
+              resources:
+                - securitycontextconstraints
+              verbs:
+                - create
+                - get
+                - list
+                - update
+                - watch
+          serviceAccountName: elasticsearch-operator
+      deployments:
+        - label:
+            name: elasticsearch-operator
+          name: elasticsearch-operator
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                name: elasticsearch-operator
+            strategy: {}
+            template:
+              metadata:
+                annotations:
+                  kubectl.kubernetes.io/default-container: elasticsearch-operator
+                creationTimestamp: null
+                labels:
+                  name: elasticsearch-operator
+              spec:
+                containers:
+                  - args:
+                      - '--secure-listen-address=0.0.0.0:8443'
+                      - '--upstream=http://127.0.0.1:8080/'
+                      - '--logtostderr=true'
+                      - '--tls-cert-file=/var/run/secrets/serving-cert/tls.crt'
+                      - >-
+                        --tls-private-key-file=/var/run/secrets/serving-cert/tls.key
+                      - '--v=2'
+                    image: >-
+                      registry.redhat.io/openshift4/ose-kube-rbac-proxy@sha256:d6f8680b8868bad5ac497bb38776b5a9d6f8f2c4d35441c68fcf468841ca41fb
+                    name: kube-rbac-proxy
+                    ports:
+                      - containerPort: 8443
+                        name: https
+                        protocol: TCP
+                    resources: {}
+                    securityContext:
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                        drop:
+                          - ALL
+                    volumeMounts:
+                      - mountPath: /var/run/secrets/serving-cert
+                        name: elasticsearch-operator-metrics-cert
+                  - resources: {}
+                    readinessProbe:
+                      httpGet:
+                        path: /readyz
+                        port: 8081
+                      initialDelaySeconds: 5
+                      periodSeconds: 10
+                    name: elasticsearch-operator
+                    command:
+                      - elasticsearch-operator
+                    livenessProbe:
+                      httpGet:
+                        path: /healthz
+                        port: 8081
+                      initialDelaySeconds: 15
+                      periodSeconds: 20
+                    env:
+                      - name: WATCH_NAMESPACE
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: 'metadata.annotations[''olm.targetNamespaces'']'
+                      - name: POD_NAME
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.name
+                      - name: OPERATOR_NAME
+                        value: elasticsearch-operator
+                      - name: RELATED_IMAGE_ELASTICSEARCH_PROXY
+                        value: >-
+                          registry.redhat.io/openshift-logging/elasticsearch-proxy-rhel9@sha256:911ee3f26ae71eab71bf2a1455d1c2ea871cddc78a51189e3ad2f18f63bd3d91
+                      - name: RELATED_IMAGE_ELASTICSEARCH
+                        value: >-
+                          registry.redhat.io/openshift-logging/elasticsearch6-rhel9@sha256:3ad088cbfcfb006d87762e96a70ff989e75d49872954347f7efe34d9529c1b7a
+                      - name: RELATED_IMAGE_KIBANA
+                        value: >-
+                          registry.redhat.io/openshift-logging/kibana6-rhel8@sha256:055b40047fda0d120543d88327699809fedc8bedbc1cedf415348bad2e2fb5bf
+                      - name: RELATED_IMAGE_CURATOR
+                        value: >-
+                          registry.redhat.io/openshift-logging/logging-curator5-rhel9@sha256:4099ba73e0986fc8d6a077679a453bae3620640da113fad69774112ad9bc2a60
+                    securityContext:
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                        drop:
+                          - ALL
+                    ports:
+                      - containerPort: 8080
+                        name: http
+                        protocol: TCP
+                    imagePullPolicy: IfNotPresent
+                    image: >-
+                      registry.redhat.io/openshift-logging/elasticsearch-rhel9-operator@sha256:3230b2a35fc19467ba16e0f01f4756f6cbc514922a5869d79563d265379b1865
+                    args:
+                      - '--health-probe-bind-address=:8081'
+                      - '--metrics-bind-address=127.0.0.1:8080'
+                nodeSelector:
+                  kubernetes.io/os: linux
+                securityContext:
+                  runAsNonRoot: true
+                serviceAccountName: elasticsearch-operator
+                volumes:
+                  - name: elasticsearch-operator-metrics-cert
+                    secret:
+                      defaultMode: 420
+                      optional: true
+                      secretName: elasticsearch-operator-metrics
+    strategy: deployment
+  maintainers:
+    - email: aos-logging@redhat.com
+      name: 'Red Hat, AOS Logging'
+  description: >
+    The Elasticsearch Operator for OCP provides a means for configuring and
+    managing an Elasticsearch cluster for use in tracing 
+
+    and cluster logging as well as a Kibana instance to connect to it.
+
+    This operator only supports OCP Cluster Logging and Jaeger.  It is tightly
+    coupled to each and is not currently capable of
+
+    being used as a general purpose manager of Elasticsearch clusters running on
+    OCP.
+
+
+    Please note: For a general purpose Elasticsearch operator, please use
+    Elastic's Elasticsearch (ECK) Operator
+    [here](https://catalog.redhat.com/software/containers/elastic/eck-operator/5fabf6d1ecb52450895164be?container-tabs=gti)
+
+
+    It is recommended that this operator be installed in the
+    `openshift-operators-redhat` namespace to 
+
+    properly support the Cluster Logging and Jaeger use cases.
+
+
+    Once installed, the operator provides the following features for
+    **Elasticsearch**:
+
+    * **Create/Destroy**: Deploy an Elasticsearch cluster to the same namespace
+    in which the elasticsearch CR is created.
+
+    * **Update**: Changes to the elasticsearch CR will be scheduled and applied
+    to the cluster in a controlled manner (most often as a rolling upgrade).
+
+    * **Cluster health**: The operator will periodically poll the cluster to
+    evaluate its current health (such as the number of active shards and if any
+    cluster nodes have reached their storage watermark usage).
+
+    * **Redeploys**: In the case where the provided secrets are updated, the
+    Elasticsearch Operator will schedule and perform a full cluster restart.
+
+    * **Index management**: The Elasticsearch Operator will create cronjobs to
+    perform index management such as roll over and deletion.
+
+
+    Once installed, the operator provides the following features for **Kibana**:
+
+    * **Create/Destroy**: Deploy a Kibana instance to the same namespace in
+    which the kibana CR is created (this should be the same namespace as the
+    elasticsearch CR).
+
+    * **Update**: Changes to the kibana CR will be scheduled and applied to the
+    cluster in a controlled manner.
+
+    * **Redeploys**: In the case where the provided secrets are updated, the
+    Elasticsearch Operator will perform a restart.
+
+
+    ### Additionally provided features
+
+    * Out of the box multitenancy that is integrated with OCP user access
+    control.
+
+    * Document Level Security
+
+    * mTLS communication between Elasticsearch, Kibana, Index Management
+    cronjobs, and CLO's Fluentd
+
+    * OCP prometheus dashboard for Elasticsearch clusters
+
+    * Prometheus Alerting rules  
+  replaces: elasticsearch-operator.v5.8.1
+status:
+  cleanup: {}
+  conditions:
+    - lastTransitionTime: '2024-01-22T04:43:20Z'
+      lastUpdateTime: '2024-01-22T04:43:20Z'
+      message: requirements not yet checked
+      phase: Pending
+      reason: RequirementsUnknown
+    - lastTransitionTime: '2024-01-22T04:43:20Z'
+      lastUpdateTime: '2024-01-22T04:43:20Z'
+      message: one or more requirements couldn't be found
+      phase: Pending
+      reason: RequirementsNotMet
+    - lastTransitionTime: '2024-01-22T04:43:23Z'
+      lastUpdateTime: '2024-01-22T04:43:23Z'
+      message: 'all requirements found, attempting install'
+      phase: InstallReady
+      reason: AllRequirementsMet
+    - lastTransitionTime: '2024-01-22T04:43:23Z'
+      lastUpdateTime: '2024-01-22T04:43:23Z'
+      message: waiting for install components to report healthy
+      phase: Installing
+      reason: InstallSucceeded
+    - lastTransitionTime: '2024-01-22T04:43:23Z'
+      lastUpdateTime: '2024-01-22T04:43:24Z'
+      message: >-
+        installing: waiting for deployment elasticsearch-operator to become
+        ready: deployment "elasticsearch-operator" not available: Deployment
+        does not have minimum availability.
+      phase: Installing
+      reason: InstallWaiting
+    - lastTransitionTime: '2024-01-22T04:45:16Z'
+      lastUpdateTime: '2024-01-22T04:45:16Z'
+      message: install strategy completed with no errors
+      phase: Succeeded
+      reason: InstallSucceeded
+    - lastTransitionTime: '2024-01-22T13:56:14Z'
+      lastUpdateTime: '2024-01-22T13:56:14Z'
+      message: >-
+        installing: waiting for deployment elasticsearch-operator to become
+        ready: deployment "elasticsearch-operator" not available: Deployment
+        does not have minimum availability.
+      phase: Failed
+      reason: ComponentUnhealthy
+    - lastTransitionTime: '2024-01-22T13:56:15Z'
+      lastUpdateTime: '2024-01-22T13:56:15Z'
+      message: >-
+        installing: waiting for deployment elasticsearch-operator to become
+        ready: deployment "elasticsearch-operator" not available: Deployment
+        does not have minimum availability.
+      phase: Pending
+      reason: NeedsReinstall
+    - lastTransitionTime: '2024-01-22T13:56:16Z'
+      lastUpdateTime: '2024-01-22T13:56:16Z'
+      message: 'all requirements found, attempting install'
+      phase: InstallReady
+      reason: AllRequirementsMet
+    - lastTransitionTime: '2024-01-22T13:56:18Z'
+      lastUpdateTime: '2024-01-22T13:56:18Z'
+      message: waiting for install components to report healthy
+      phase: Installing
+      reason: InstallSucceeded
+    - lastTransitionTime: '2024-01-22T13:56:18Z'
+      lastUpdateTime: '2024-01-22T13:56:19Z'
+      message: >-
+        installing: waiting for deployment elasticsearch-operator to become
+        ready: deployment "elasticsearch-operator" not available: Deployment
+        does not have minimum availability.
+      phase: Installing
+      reason: InstallWaiting
+    - lastTransitionTime: '2024-01-22T13:56:35Z'
+      lastUpdateTime: '2024-01-22T13:56:35Z'
+      message: install strategy completed with no errors
+      phase: Succeeded
+      reason: InstallSucceeded
+  lastTransitionTime: '2024-01-22T13:56:35Z'
+  lastUpdateTime: '2024-01-22T13:56:35Z'
+  message: >-
+    The operator is running in openshift-operators-redhat but is managing this
+    namespace
+  phase: Succeeded
+  reason: Copied
+  requirementStatus:
+    - group: operators.coreos.com
+      kind: ClusterServiceVersion
+      message: CSV minKubeVersion (1.18.3) less than server version (v1.27.8+4fab27b)
+      name: elasticsearch-operator.v5.8.2
+      status: Present
+      version: v1alpha1
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      message: CRD is present and Established condition is true
+      name: elasticsearches.logging.openshift.io
+      status: Present
+      uuid: c326e885-adf5-492f-a8e9-f0b27978eadc
+      version: v1
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      message: CRD is present and Established condition is true
+      name: kibanas.logging.openshift.io
+      status: Present
+      uuid: b5b90447-069a-41f7-b5dd-3a9de7d98b6b
+      version: v1
+    - dependents:
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: 'cluster rule:{"verbs":["get"],"nonResourceURLs":["/metrics"]}'
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["apps"],"resources":["daemonsets","deployments","replicasets","statefulsets"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["update"],"apiGroups":["apps"],"resources":["deployments/finalizers"],"resourceNames":["elasticsearch-operator"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["create"],"apiGroups":["authentication.k8s.io"],"resources":["subjectaccessreviews","tokenreviews"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["create"],"apiGroups":["authorization.k8s.io"],"resources":["subjectaccessreviews"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["batch"],"resources":["cronjobs"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["get","list","watch"],"apiGroups":["config.openshift.io"],"resources":["oauths","proxies"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["create","delete","get","update"],"apiGroups":["console.openshift.io"],"resources":["consoleexternalloglinks","consolelinks"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["create","get","update"],"apiGroups":["coordination.k8s.io"],"resources":["leases"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":[""],"resources":["configmaps","endpoints","events","persistentvolumeclaims","pods","pods/exec","secrets","serviceaccounts","services","services/finalizers"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["get","list","watch"],"apiGroups":["image.openshift.io"],"resources":["imagestreams"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["logging.openshift.io"],"resources":["*"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["monitoring.coreos.com"],"resources":["prometheusrules","servicemonitors"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["create","delete"],"apiGroups":["networking.k8s.io"],"resources":["networkpolicies"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["oauth.openshift.io"],"resources":["oauthclients"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["rbac.authorization.k8s.io"],"resources":["clusterrolebindings","clusterroles"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["rbac.authorization.k8s.io"],"resources":["rolebindings","roles"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["*"],"apiGroups":["route.openshift.io"],"resources":["routes","routes/custom-host"]}
+          status: Satisfied
+          version: v1
+        - group: rbac.authorization.k8s.io
+          kind: PolicyRule
+          message: >-
+            cluster
+            rule:{"verbs":["create","get","list","update","watch"],"apiGroups":["security.openshift.io"],"resources":["securitycontextconstraints"]}
+          status: Satisfied
+          version: v1
+      group: ''
+      kind: ServiceAccount
+      message: ''
+      name: elasticsearch-operator
+      status: Present
+      version: v1
