@@ -1,0 +1,54 @@
+﻿kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: grafana
+  namespace: default
+  uid: bb0b0e55-c742-4174-a5ee-f12c6475dac4
+  resourceVersion: '89375'
+  creationTimestamp: '2024-01-22T06:50:01Z'
+  annotations:
+    openshift.io/host.generated: 'true'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-01-22T06:50:01Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:port':
+            .: {}
+            'f:targetPort': {}
+          'f:to':
+            'f:kind': {}
+            'f:name': {}
+            'f:weight': {}
+          'f:wildcardPolicy': {}
+    - manager: openshift-router
+      operation: Update
+      apiVersion: route.openshift.io/v1
+      time: '2024-01-22T06:50:02Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:status':
+          'f:ingress': {}
+      subresource: status
+spec:
+  host: grafana-default.apps-crc.testing
+  to:
+    kind: Service
+    name: grafana
+    weight: 100
+  port:
+    targetPort: 3000
+  wildcardPolicy: None
+status:
+  ingress:
+    - host: grafana-default.apps-crc.testing
+      routerName: default
+      conditions:
+        - type: Admitted
+          status: 'True'
+          lastTransitionTime: '2024-01-22T06:50:02Z'
+      wildcardPolicy: None
+      routerCanonicalHostname: router-default.apps-crc.testing
