@@ -4,7 +4,6 @@ metadata:
   annotations:
     app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"grafana"}]'
     openshift.io/host.generated: 'true'
-  resourceVersion: '166171'
   name: jaeger-all-in-one-inmemory
   uid: 6bd8b610-d15c-468a-b4fe-cb70ded763b2
   creationTimestamp: '2024-01-22T04:46:42Z'

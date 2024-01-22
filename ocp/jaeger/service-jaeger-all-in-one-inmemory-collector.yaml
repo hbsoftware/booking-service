@@ -3,7 +3,6 @@ apiVersion: v1
 metadata:
   annotations:
     app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"grafana"}]'
-  resourceVersion: '166175'
   name: jaeger-all-in-one-inmemory-collector
   uid: a921c508-ab67-4742-8536-a6c0cdf23538
   creationTimestamp: '2024-01-22T04:46:41Z'

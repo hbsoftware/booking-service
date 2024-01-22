@@ -7,7 +7,6 @@ metadata:
     linkerd.io/inject: disabled
     prometheus.io/port: '14269'
     prometheus.io/scrape: 'true'
-  resourceVersion: '166178'
   name: jaeger-all-in-one-inmemory
   uid: 004bd12f-7f4f-4a85-a390-b07a5dca3cc8
   creationTimestamp: '2024-01-22T04:46:42Z'
