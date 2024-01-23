@@ -2,10 +2,9 @@ package com.assign.ps.client;
 
 import org.springframework.web.bind.annotation.*;
 
-import reactivefeign.spring.config.ReactiveFeignClient;
 import reactor.core.publisher.Mono;
 
-@ReactiveFeignClient(value = "cinema-service", url = "${cinema.service.url}")
+// @ReactiveFeignClient(value = "cinema-service", url = "${cinema.service.url}")
 public interface CinemaClient {
 
 

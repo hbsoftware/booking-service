@@ -21,13 +21,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@EnableFeignClients
 @EnableConfigurationProperties
 @ContextConfiguration(classes = { WireMockConfig.class })
 @Slf4j
