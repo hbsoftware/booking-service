@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 
 import com.assign.ps.client.CinemaClient;
+import com.assign.ps.client.CinemaWebClient;
 import com.assign.ps.config.WireMockConfig;
 import com.assign.ps.mock.BookingMock;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -21,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -32,7 +34,7 @@ import org.springframework.test.context.ContextConfiguration;
 class BookingControllerTest {
 
    @Autowired
-   CinemaClient client;
+   CinemaWebClient client;
    
   @Autowired
   private WireMockServer mockBooksService;
@@ -50,9 +52,9 @@ class BookingControllerTest {
 	@Test 
 	void testCinemasByCity()
 	{
-		Mono<String> browseShowsByCity = client.fetchCinemasByCityId(1);
+		Mono<ResponseEntity<String>> browseShowsByCity = client.fetchCinemasByCityId(1);
         assertNotNull(browseShowsByCity);
-        String browseShowsByCityStr = browseShowsByCity.block();
+        String browseShowsByCityStr = browseShowsByCity.block().getBody();
   		log.info("fetchCinemasByCityId received {} {}",mockBooksService.baseUrl(),browseShowsByCityStr);
         Gson gson = new Gson();
         JsonArray browseShowsByCityJson = gson.fromJson(browseShowsByCityStr,JsonArray.class);
@@ -61,12 +63,12 @@ class BookingControllerTest {
             assertEquals("1",cityId);
             String cinemaId = browseShowsByCityEle.getAsJsonObject().get("cinemaid").getAsString();
             
-            Mono<String> browseMoviesByCinemaId = client.filterMovies(1);
+            Mono<ResponseEntity<String>> browseMoviesByCinemaId = client.filterMovies(1);
             assertNotNull(browseMoviesByCinemaId);
-            String browseMoviesByCinemaStr = browseMoviesByCinemaId.block();
+            String browseMoviesByCinemaStr = browseMoviesByCinemaId.block().getBody();
             log.info("filterMovies received {} {}",mockBooksService.baseUrl(),browseMoviesByCinemaStr);
-            final Mono<String> shows = client.fetchShowsByMovieId(Integer.valueOf(2));
-            log.info("fetchShowsByMovieId bookings response shows ...{}",shows.block());
+            final Mono<ResponseEntity<String>> shows = client.fetchShowsByMovieId(Integer.valueOf(2));
+            log.info("fetchShowsByMovieId bookings response shows ...{}",shows.block().getBody());
 
         }    
 	}
