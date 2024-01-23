@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 
-import com.assign.ps.client.CinemaClient;
 import com.assign.ps.client.CinemaWebClient;
 import com.assign.ps.config.WireMockConfig;
 import com.assign.ps.mock.BookingMock;
