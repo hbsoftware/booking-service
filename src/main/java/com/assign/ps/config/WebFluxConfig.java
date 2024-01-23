@@ -30,8 +30,8 @@ public class WebFluxConfig implements WebFluxConfigurer {
                 .build();
 
         final HttpClient httpClient = HttpClient.create(provider);
-
-        final ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient.wiretap(true));
+        HttpClient wiretap = httpClient.wiretap(true);
+        final ClientHttpConnector connector = new ReactorClientHttpConnector(wiretap);
         final ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
                 .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024)).build();
         return WebClient.builder()
