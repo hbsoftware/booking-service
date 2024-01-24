@@ -36,8 +36,9 @@ public class BookingController {
         final Mono<ResponseEntity<String>> browseCinemasByCity = cinemaWebClient.fetchCinemasByCityId(Integer.valueOf(id));
         final ResponseEntity<String> cinemas = browseCinemasByCity.block();
         final Gson gson = new Gson();
-        log.info("fetchCinemasByCityId bookings response cinemaStr ...{}", browseCinemasByCity.block().getBody());
+        log.debug("fetchCinemasByCityId bookings response cinemaStr ...{}", browseCinemasByCity.block().getBody());
         JsonArray jsonArray = new JsonArray();
+        JsonArray cinemaArray = new JsonArray();
         if (cinemas != null) {
             String cinemaStr = cinemas.getBody();
             if(cinemaStr !=null && !cinemaStr.equals("[]")){
@@ -46,20 +47,24 @@ public class BookingController {
                 final String cinemaId = cinemasEle.getAsJsonObject().get("cinemaid").getAsString();
                 // Get all movies in the cinemas {cinemaId} of the city {id}
                 final Mono<ResponseEntity<String>> movies = cinemaWebClient.filterMovies(Integer.valueOf(cinemaId));
-                log.info("filterMovies for cinemaId {} movies response...{}", cinemaId, movies.block().getBody());
+                log.debug("filterMovies for cinemaId {} movies response...{}", cinemaId, movies.block().getBody());
                 final JsonElement jsonElementMovies = gson.fromJson(movies.block().getBody(), JsonElement.class);
                 final JsonArray jsonArrayMovies = jsonElementMovies.getAsJsonObject().get("items").getAsJsonArray();
+                cinemasEle.getAsJsonObject().add("movies", jsonArrayMovies);
+
                 for (JsonElement moviesEle : jsonArrayMovies) {
                     final String movieId = moviesEle.getAsJsonObject().get("movieid").getAsString();
-                    log.info("Getting all shows for movieId {} in the cinemaId {} of the city {}", movieId,cinemaId,id);
                     //Get all shows for movies in the cinemas of the city
                     final Mono<ResponseEntity<String>> shows = cinemaWebClient.fetchShowsByMovieId(Integer.valueOf(movieId));
                     String show = shows.block().getBody();
-                    JsonElement jsonElement = JsonParser.parseString(show);
-                    log.info("Got all shows for movieId {} in the cinemaId {} of the city {} , show {}", movieId,cinemaId,id,show);
-                    jsonArray.add(jsonElement.getAsJsonObject());
+                    JsonElement showsElement = JsonParser.parseString(show);
+                    log.debug("Got all shows for movieId {} in the cinemaId {} of the city {} , show {}", movieId,cinemaId,id,show);
+                    moviesEle.getAsJsonObject().add("shows",showsElement.getAsJsonObject().get("items").getAsJsonArray());
+
                 }
+                cinemaArray.add(cinemasEle);
             }
+            jsonArray.add(cinemaArray);
          }
         }
         String json = gson.toJson(jsonArray);
