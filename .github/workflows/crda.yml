@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'  # every day at midnight
 
 env:
-  PROJECT_DIR: booking-service
+  PROJECT_DIR: hbsoftware/booking-service
 
 jobs:
   test:
