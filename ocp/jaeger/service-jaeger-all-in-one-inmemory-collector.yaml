@@ -1,0 +1,149 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"grafana"}]'
+  name: jaeger-all-in-one-inmemory-collector
+  uid: a921c508-ab67-4742-8536-a6c0cdf23538
+  creationTimestamp: '2024-01-22T04:46:41Z'
+  managedFields:
+    - manager: jaeger-operator
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-22T04:46:41Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:app.kubernetes.io/name': {}
+          'f:ownerReferences':
+            .: {}
+            'k:{"uid":"f906a688-22a8-479b-ae34-5b5b552799a0"}': {}
+        'f:spec':
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":4317,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":4318,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":9411,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":14250,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":14267,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":14268,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+            'k:{"port":14269,"protocol":"TCP"}':
+              .: {}
+              'f:name': {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-22T13:33:26Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:app.openshift.io/connects-to': {}
+          'f:labels':
+            'f:app.kubernetes.io/part-of': {}
+  namespace: default
+  ownerReferences:
+    - apiVersion: jaegertracing.io/v1
+      kind: Jaeger
+      name: jaeger-all-in-one-inmemory
+      uid: f906a688-22a8-479b-ae34-5b5b552799a0
+      controller: true
+  labels:
+    app: jaeger
+    app.kubernetes.io/component: service-collector
+    app.kubernetes.io/instance: jaeger-all-in-one-inmemory
+    app.kubernetes.io/managed-by: jaeger-operator
+    app.kubernetes.io/name: jaeger-all-in-one-inmemory-collector
+    app.kubernetes.io/part-of: book-4-fun
+spec:
+  clusterIP: 10.217.4.254
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: http-zipkin
+      protocol: TCP
+      port: 9411
+      targetPort: 9411
+    - name: tls-grpc-jaeger
+      protocol: TCP
+      port: 14250
+      targetPort: 14250
+    - name: http-c-tchan-trft
+      protocol: TCP
+      port: 14267
+      targetPort: 14267
+    - name: http-c-binary-trft
+      protocol: TCP
+      port: 14268
+      targetPort: 14268
+    - name: admin-http
+      protocol: TCP
+      port: 14269
+      targetPort: 14269
+    - name: grpc-otlp
+      protocol: TCP
+      port: 4317
+      targetPort: 4317
+    - name: http-otlp
+      protocol: TCP
+      port: 4318
+      targetPort: 4318
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 10.217.4.254
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: jaeger
+    app.kubernetes.io/component: all-in-one
+    app.kubernetes.io/instance: jaeger-all-in-one-inmemory
+    app.kubernetes.io/managed-by: jaeger-operator
+    app.kubernetes.io/name: jaeger-all-in-one-inmemory
+    app.kubernetes.io/part-of: jaeger
+status:
+  loadBalancer: {}

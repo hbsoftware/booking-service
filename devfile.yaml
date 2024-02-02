@@ -31,12 +31,18 @@ components:
     - -f
     - /dev/null
     endpoints:
-    - name: port-8080-tcp
-      protocol: tcp
+    - name: http-springboot
       targetPort: 8080
+    - exposure: none
+      name: debug
+      targetPort: 5858
     env:
     - name: DEBUG_PORT
       value: "5858"
+    - name: OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+      value: "http://collector:4317"
+    - name: CINEMA_SERVICE_URL
+      value: "https://cinema-service-hb-butalia-ibm-dev.apps.sandbox-m3.1530.p1.openshiftapps.com"
     image: registry.access.redhat.com/ubi9/openjdk-17:1.17-1
     memoryLimit: 768Mi
     mountSources: true

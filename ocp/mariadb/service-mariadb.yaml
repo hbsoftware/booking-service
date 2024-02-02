@@ -1,0 +1,48 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: mariadb
+  namespace: default
+  uid: 2d8c4283-d667-4071-b62f-c10f88ea92bf
+  creationTimestamp: '2024-01-22T04:16:05Z'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-22T04:16:05Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:clusterIPs': {}
+          'f:sessionAffinity': {}
+          'f:clusterIP': {}
+          'f:type': {}
+          'f:ipFamilyPolicy': {}
+          'f:selector': {}
+          'f:ipFamilies': {}
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":3306,"protocol":"TCP"}':
+              .: {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+spec:
+  clusterIP: 10.217.5.25
+  ipFamilies:
+    - IPv4
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 10.217.5.25
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: mariadb
+status:
+  loadBalancer: {}

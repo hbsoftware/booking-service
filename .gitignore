@@ -69,3 +69,5 @@ target/test-classes/com/assign/ps/controller/BookingControllerTest.class
 target/test-classes/com/assign/ps/mock/BookingMock.class
 target/test-classes/payload/get-cinemas-cities.json
 target/test-classes/payload/get-movies-by-cinema.json
+ocp/mariadb/deployment-mariadb.yaml.bak
+ocp/mariadb/service-mariadb.yaml.bak

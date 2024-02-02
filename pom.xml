@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.1.6</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
+		<!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.assign.ps</groupId>
 	<artifactId>booking-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.4-SNAPSHOT</version>
 	<properties>
 		<java.version>17</java.version>
 		<jkube.createExternalUrls>true</jkube.createExternalUrls>
@@ -21,14 +21,21 @@
 		<janino.version>3.1.10</janino.version>
 		<logstash.version>7.4</logstash.version>
 		<sonar.organization>ps-assign</sonar.organization>
-			<sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.coverage.jacoco.xmlReportPaths>
 			  ../app-it/target/site/jacoco-aggregate/jacoco.xml
-			</sonar.coverage.jacoco.xmlReportPaths>
+		</sonar.coverage.jacoco.xmlReportPaths>
+
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.snakeyaml</groupId>
+					<artifactId>snakeyaml</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.micrometer</groupId>
@@ -37,19 +44,18 @@
 		<dependency>
 			<groupId>io.opentelemetry.instrumentation</groupId>
 			<artifactId>opentelemetry-spring-boot-starter</artifactId>
-    		<version>1.32.0-alpha</version>
+			<version>1.32.0-alpha</version>
 		</dependency>
 		<dependency>
 			<groupId>io.opentelemetry.instrumentation</groupId>
 			<artifactId>opentelemetry-logback-mdc-1.0</artifactId>
-    		<version>1.32.0-alpha</version>
+			<version>1.32.0-alpha</version>
 		</dependency>
-<!-- https://mvnrepository.com/artifact/io.opentelemetry/opentelemetry-exporters-prometheus -->
-<dependency>
-    <groupId>io.opentelemetry</groupId>
-    <artifactId>opentelemetry-exporters-prometheus</artifactId>
-    <version>0.9.1</version>
-</dependency>
+		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporters-prometheus</artifactId>
+			<version>0.9.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -92,7 +98,7 @@
 		<dependency>
 			<groupId>org.codehaus.janino</groupId>
 			<artifactId>janino</artifactId>
-			<version>${janino.version}</version><!--$NO-MVN-MAN-VER$-->
+			<version>${janino.version}</version>			<!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
 		<!-- Used to encode logs to Logstash (ElasticSearch) compatible format -->
@@ -107,30 +113,28 @@
 			<version>2.10.1</version>
 		</dependency>
 		<!-- Swagger UI -->
-<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
-<dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.2.0</version>
-</dependency>
-<!-- Mockito extention -->
-<dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-junit-jupiter</artifactId>
-    <scope>test</scope>
-</dependency>
-<dependency>
-	<groupId>com.playtika.reactivefeign</groupId>
-	<artifactId>feign-reactor-spring-cloud-starter</artifactId>
-	<version>4.0.3</version>
-	<type>pom</type>
-</dependency>	
-<dependency>
-<groupId>com.github.tomakehurst</groupId>
-<artifactId>wiremock</artifactId>
-<version>3.0.1</version>
-<scope>test</scope>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.2.0</version>
+		</dependency>
+		<!-- Mockito extention -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.tomakehurst</groupId>
+			<artifactId>wiremock</artifactId>
+			<version>3.0.1</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -156,48 +160,61 @@
 		</plugins>
 	</build>
 	<profiles>
-	<profile>
-		<id>coverage</id>
-		<build>
-		 <plugins>
-		  <plugin>
-			<groupId>org.jacoco</groupId>
-		   <artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.11</version>
-			<executions>
-			  <execution>
-				<id>prepare-agent</id>
-				<goals>
-				  <goal>prepare-agent</goal>
-				</goals>
-			  </execution>
-			  <execution>
-				<id>report</id>
-				<goals>
-				  <goal>report</goal>
-				</goals>
-				<configuration>
-				  <formats>
-					<format>XML</format>
-				  </formats>
-				</configuration>
-			  </execution>
-			</executions>
-		  </plugin>
-		  </plugins>
-		</build>
-	  </profile>
-	  <profile>
-		<id>openshift</id>
-		<build>
-		  <plugins>
-			<plugin>
-			  <groupId>org.eclipse.jkube</groupId>
-			  <artifactId>openshift-maven-plugin</artifactId>
-			  <version>1.15.0</version>
-			</plugin>
-		  </plugins>
-		</build>
-	  </profile>
-</profiles>	
+		<profile>
+			<id>coverage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<version>0.8.11</version>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<goals>
+									<goal>report</goal>
+								</goals>
+								<configuration>
+									<formats>
+										<format>XML</format>
+									</formats>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>openshift</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.jkube</groupId>
+						<artifactId>openshift-maven-plugin</artifactId>
+						<version>1.15.0</version>
+						<configuration>
+							<resources>
+								<controller>
+
+									<env>
+										<CINEMA_SERVICE_URL>http://cinema-service:8080</CINEMA_SERVICE_URL>
+										<OTEL_EXPORTER_OTLP_ENDPOINT>http://jaeger-all-in-one-inmemory-collector.default.svc.cluster.local:4317</OTEL_EXPORTER_OTLP_ENDPOINT>
+										<LOG_LEVEL>INFO</LOG_LEVEL>
+										<OTEL_METRICS_EXPORTER>none</OTEL_METRICS_EXPORTER>
+									</env>
+								</controller>
+							</resources>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

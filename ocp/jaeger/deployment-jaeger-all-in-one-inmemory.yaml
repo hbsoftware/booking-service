@@ -1,0 +1,582 @@
+﻿kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"grafana"}]'
+    deployment.kubernetes.io/revision: '1'
+    linkerd.io/inject: disabled
+    prometheus.io/port: '14269'
+    prometheus.io/scrape: 'true'
+  name: jaeger-all-in-one-inmemory
+  uid: 004bd12f-7f4f-4a85-a390-b07a5dca3cc8
+  creationTimestamp: '2024-01-22T04:46:42Z'
+  generation: 2
+  managedFields:
+    - manager: jaeger-operator
+      operation: Update
+      apiVersion: apps/v1
+      time: '2024-01-22T04:46:42Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:linkerd.io/inject': {}
+            'f:prometheus.io/port': {}
+            'f:prometheus.io/scrape': {}
+          'f:labels':
+            .: {}
+            'f:app': {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:app.kubernetes.io/name': {}
+          'f:ownerReferences':
+            .: {}
+            'k:{"uid":"f906a688-22a8-479b-ae34-5b5b552799a0"}': {}
+        'f:spec':
+          'f:progressDeadlineSeconds': {}
+          'f:replicas': {}
+          'f:revisionHistoryLimit': {}
+          'f:selector': {}
+          'f:strategy':
+            'f:type': {}
+          'f:template':
+            'f:metadata':
+              'f:annotations':
+                .: {}
+                'f:linkerd.io/inject': {}
+                'f:prometheus.io/port': {}
+                'f:prometheus.io/scrape': {}
+                'f:sidecar.istio.io/inject': {}
+              'f:labels':
+                .: {}
+                'f:app': {}
+                'f:app.kubernetes.io/component': {}
+                'f:app.kubernetes.io/instance': {}
+                'f:app.kubernetes.io/managed-by': {}
+                'f:app.kubernetes.io/name': {}
+                'f:app.kubernetes.io/part-of': {}
+            'f:spec':
+              'f:volumes':
+                .: {}
+                'k:{"name":"jaeger-all-in-one-inmemory-collector-tls-config-volume"}':
+                  .: {}
+                  'f:name': {}
+                  'f:secret':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:secretName': {}
+                'k:{"name":"jaeger-all-in-one-inmemory-sampling-configuration-volume"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+                'k:{"name":"jaeger-all-in-one-inmemory-service-ca"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+                'k:{"name":"jaeger-all-in-one-inmemory-trusted-ca"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+                'k:{"name":"jaeger-all-in-one-inmemory-ui-configuration-volume"}':
+                  .: {}
+                  'f:configMap':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:items': {}
+                    'f:name': {}
+                  'f:name': {}
+                'k:{"name":"jaeger-all-in-one-inmemory-ui-oauth-proxy-tls"}':
+                  .: {}
+                  'f:name': {}
+                  'f:secret':
+                    .: {}
+                    'f:defaultMode': {}
+                    'f:secretName': {}
+              'f:containers':
+                'k:{"name":"jaeger"}':
+                  'f:image': {}
+                  'f:volumeMounts':
+                    .: {}
+                    'k:{"mountPath":"/etc/config"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/etc/jaeger/sampling"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/etc/pki/ca-trust/extracted/pem"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/etc/pki/ca-trust/source/service-ca"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/etc/tls-config"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:args': {}
+                  'f:livenessProbe':
+                    .: {}
+                    'f:failureThreshold': {}
+                    'f:httpGet':
+                      .: {}
+                      'f:path': {}
+                      'f:port': {}
+                      'f:scheme': {}
+                    'f:initialDelaySeconds': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:env':
+                    .: {}
+                    'k:{"name":"COLLECTOR_OTLP_ENABLED"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"COLLECTOR_ZIPKIN_HOST_PORT"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"JAEGER_DISABLED"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                    'k:{"name":"METRICS_STORAGE_TYPE"}':
+                      .: {}
+                      'f:name': {}
+                    'k:{"name":"SPAN_STORAGE_TYPE"}':
+                      .: {}
+                      'f:name': {}
+                      'f:value': {}
+                  'f:readinessProbe':
+                    .: {}
+                    'f:failureThreshold': {}
+                    'f:httpGet':
+                      .: {}
+                      'f:path': {}
+                      'f:port': {}
+                      'f:scheme': {}
+                    'f:initialDelaySeconds': {}
+                    'f:periodSeconds': {}
+                    'f:successThreshold': {}
+                    'f:timeoutSeconds': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    'k:{"containerPort":6831,"protocol":"UDP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":5775,"protocol":"UDP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":6832,"protocol":"UDP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":14250,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":5778,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":4317,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":4318,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":16685,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":16686,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":14267,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":14268,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    .: {}
+                    'k:{"containerPort":14269,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                    'k:{"containerPort":9411,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                  'f:name': {}
+                'k:{"name":"oauth-proxy"}':
+                  'f:image': {}
+                  'f:volumeMounts':
+                    .: {}
+                    'k:{"mountPath":"/etc/pki/ca-trust/extracted/pem"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                      'f:readOnly': {}
+                    'k:{"mountPath":"/etc/tls/private"}':
+                      .: {}
+                      'f:mountPath': {}
+                      'f:name': {}
+                  'f:terminationMessagePolicy': {}
+                  .: {}
+                  'f:resources': {}
+                  'f:args': {}
+                  'f:terminationMessagePath': {}
+                  'f:imagePullPolicy': {}
+                  'f:ports':
+                    .: {}
+                    'k:{"containerPort":8443,"protocol":"TCP"}':
+                      .: {}
+                      'f:containerPort': {}
+                      'f:name': {}
+                      'f:protocol': {}
+                  'f:name': {}
+              'f:dnsPolicy': {}
+              'f:serviceAccount': {}
+              'f:restartPolicy': {}
+              'f:schedulerName': {}
+              'f:terminationGracePeriodSeconds': {}
+              'f:serviceAccountName': {}
+              'f:enableServiceLinks': {}
+              'f:securityContext': {}
+    - manager: Mozilla
+      operation: Update
+      apiVersion: apps/v1
+      time: '2024-01-22T13:33:26Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:app.openshift.io/connects-to': {}
+          'f:labels':
+            'f:app.kubernetes.io/part-of': {}
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: apps/v1
+      time: '2024-01-22T13:33:26Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:metadata':
+          'f:annotations':
+            'f:deployment.kubernetes.io/revision': {}
+        'f:status':
+          'f:availableReplicas': {}
+          'f:collisionCount': {}
+          'f:conditions':
+            .: {}
+            'k:{"type":"Available"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+            'k:{"type":"Progressing"}':
+              .: {}
+              'f:lastTransitionTime': {}
+              'f:lastUpdateTime': {}
+              'f:message': {}
+              'f:reason': {}
+              'f:status': {}
+              'f:type': {}
+          'f:observedGeneration': {}
+          'f:readyReplicas': {}
+          'f:replicas': {}
+          'f:updatedReplicas': {}
+      subresource: status
+  namespace: default
+  ownerReferences:
+    - apiVersion: jaegertracing.io/v1
+      kind: Jaeger
+      name: jaeger-all-in-one-inmemory
+      uid: f906a688-22a8-479b-ae34-5b5b552799a0
+      controller: true
+  labels:
+    app: jaeger
+    app.kubernetes.io/component: all-in-one
+    app.kubernetes.io/instance: jaeger-all-in-one-inmemory
+    app.kubernetes.io/managed-by: jaeger-operator
+    app.kubernetes.io/name: jaeger-all-in-one-inmemory
+    app.kubernetes.io/part-of: book-4-fun
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+      app.kubernetes.io/component: all-in-one
+      app.kubernetes.io/instance: jaeger-all-in-one-inmemory
+      app.kubernetes.io/managed-by: jaeger-operator
+      app.kubernetes.io/name: jaeger-all-in-one-inmemory
+      app.kubernetes.io/part-of: jaeger
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jaeger
+        app.kubernetes.io/component: all-in-one
+        app.kubernetes.io/instance: jaeger-all-in-one-inmemory
+        app.kubernetes.io/managed-by: jaeger-operator
+        app.kubernetes.io/name: jaeger-all-in-one-inmemory
+        app.kubernetes.io/part-of: jaeger
+      annotations:
+        linkerd.io/inject: disabled
+        prometheus.io/port: '14269'
+        prometheus.io/scrape: 'true'
+        sidecar.istio.io/inject: 'false'
+    spec:
+      restartPolicy: Always
+      serviceAccountName: jaeger-all-in-one-inmemory-ui-proxy
+      schedulerName: default-scheduler
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 30
+      securityContext: {}
+      containers:
+        - resources: {}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 14269
+              scheme: HTTP
+            initialDelaySeconds: 1
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          terminationMessagePath: /dev/termination-log
+          name: jaeger
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 14269
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 15
+            successThreshold: 1
+            failureThreshold: 5
+          env:
+            - name: SPAN_STORAGE_TYPE
+              value: memory
+            - name: METRICS_STORAGE_TYPE
+            - name: COLLECTOR_ZIPKIN_HOST_PORT
+              value: ':9411'
+            - name: JAEGER_DISABLED
+              value: 'false'
+            - name: COLLECTOR_OTLP_ENABLED
+              value: 'true'
+          ports:
+            - name: zk-compact-trft
+              containerPort: 5775
+              protocol: UDP
+            - name: config-rest
+              containerPort: 5778
+              protocol: TCP
+            - name: jg-compact-trft
+              containerPort: 6831
+              protocol: UDP
+            - name: jg-binary-trft
+              containerPort: 6832
+              protocol: UDP
+            - name: zipkin
+              containerPort: 9411
+              protocol: TCP
+            - name: c-tchan-trft
+              containerPort: 14267
+              protocol: TCP
+            - name: c-binary-trft
+              containerPort: 14268
+              protocol: TCP
+            - name: grpc-query
+              containerPort: 16685
+              protocol: TCP
+            - name: query
+              containerPort: 16686
+              protocol: TCP
+            - name: admin-http
+              containerPort: 14269
+              protocol: TCP
+            - name: grpc
+              containerPort: 14250
+              protocol: TCP
+            - name: grpc-otlp
+              containerPort: 4317
+              protocol: TCP
+            - name: http-otlp
+              containerPort: 4318
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: jaeger-all-in-one-inmemory-ui-configuration-volume
+              readOnly: true
+              mountPath: /etc/config
+            - name: jaeger-all-in-one-inmemory-sampling-configuration-volume
+              readOnly: true
+              mountPath: /etc/jaeger/sampling
+            - name: jaeger-all-in-one-inmemory-collector-tls-config-volume
+              readOnly: true
+              mountPath: /etc/tls-config
+            - name: jaeger-all-in-one-inmemory-trusted-ca
+              readOnly: true
+              mountPath: /etc/pki/ca-trust/extracted/pem
+            - name: jaeger-all-in-one-inmemory-service-ca
+              readOnly: true
+              mountPath: /etc/pki/ca-trust/source/service-ca
+          terminationMessagePolicy: File
+          image: >-
+            registry.redhat.io/rhosdt/jaeger-all-in-one-rhel8@sha256:a21c5ae4339682904e8075a391a6cee11ddf66142ba0b3e9150c89f1c77ff373
+          args:
+            - '--collector.grpc.tls.cert=/etc/tls-config/tls.crt'
+            - '--collector.grpc.tls.enabled=true'
+            - '--collector.grpc.tls.key=/etc/tls-config/tls.key'
+            - '--query.ui-config=/etc/config/ui.json'
+            - >-
+              --reporter.grpc.tls.ca=/etc/pki/ca-trust/source/service-ca/service-ca.crt
+            - '--reporter.grpc.tls.enabled=true'
+            - >-
+              --reporter.grpc.tls.server-name=jaeger-all-in-one-inmemory-collector-headless.default.svc.cluster.local
+            - '--sampling.strategies-file=/etc/jaeger/sampling/sampling.json'
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: oauth-proxy
+          ports:
+            - name: public
+              containerPort: 8443
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: jaeger-all-in-one-inmemory-ui-oauth-proxy-tls
+              mountPath: /etc/tls/private
+            - name: jaeger-all-in-one-inmemory-trusted-ca
+              readOnly: true
+              mountPath: /etc/pki/ca-trust/extracted/pem
+          terminationMessagePolicy: File
+          image: >-
+            registry.redhat.io/openshift4/ose-oauth-proxy@sha256:219bf2d14157acd90298df58bfe77c2e3ed51ce0c743c2e51b3ed54b73dafc14
+          args:
+            - '--cookie-secret=tDZHJDI6dMSB3NmcEUoCiH'
+            - '--https-address=:8443'
+            - >-
+              --openshift-sar={"namespace": "default", "resource": "pods",
+              "verb": "get"}
+            - '--openshift-service-account=jaeger-all-in-one-inmemory-ui-proxy'
+            - '--provider=openshift'
+            - '--tls-cert=/etc/tls/private/tls.crt'
+            - '--tls-key=/etc/tls/private/tls.key'
+            - '--upstream=http://localhost:16686'
+      serviceAccount: jaeger-all-in-one-inmemory-ui-proxy
+      volumes:
+        - name: jaeger-all-in-one-inmemory-ui-configuration-volume
+          configMap:
+            name: jaeger-all-in-one-inmemory-ui-configuration
+            items:
+              - key: ui
+                path: ui.json
+            defaultMode: 420
+        - name: jaeger-all-in-one-inmemory-sampling-configuration-volume
+          configMap:
+            name: jaeger-all-in-one-inmemory-sampling-configuration
+            items:
+              - key: sampling
+                path: sampling.json
+            defaultMode: 420
+        - name: jaeger-all-in-one-inmemory-collector-tls-config-volume
+          secret:
+            secretName: jaeger-all-in-one-inmemory-collector-headless-tls
+            defaultMode: 420
+        - name: jaeger-all-in-one-inmemory-trusted-ca
+          configMap:
+            name: jaeger-all-in-one-inmemory-trusted-ca
+            items:
+              - key: ca-bundle.crt
+                path: tls-ca-bundle.pem
+            defaultMode: 420
+        - name: jaeger-all-in-one-inmemory-service-ca
+          configMap:
+            name: jaeger-all-in-one-inmemory-service-ca
+            items:
+              - key: service-ca.crt
+                path: service-ca.crt
+            defaultMode: 420
+        - name: jaeger-all-in-one-inmemory-ui-oauth-proxy-tls
+          secret:
+            secretName: jaeger-all-in-one-inmemory-ui-oauth-proxy-tls
+            defaultMode: 420
+      dnsPolicy: ClusterFirst
+  strategy:
+    type: Recreate
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 2
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2024-01-22T10:07:03Z'
+      lastTransitionTime: '2024-01-22T10:07:03Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2024-01-22T10:07:03Z'
+      lastTransitionTime: '2024-01-22T04:46:42Z'
+      reason: NewReplicaSetAvailable
+      message: >-
+        ReplicaSet "jaeger-all-in-one-inmemory-67fc5694d4" has successfully
+        progressed.
+  collisionCount: 1

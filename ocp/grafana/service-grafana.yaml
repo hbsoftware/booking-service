@@ -1,0 +1,44 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: grafana
+  namespace: default
+  uid: e2da43c3-7dbc-4fdf-8ddb-03e6dd9cbf24
+  creationTimestamp: '2024-01-22T06:47:49Z'
+  managedFields:
+    - manager: Mozilla
+      operation: Update
+      apiVersion: v1
+      time: '2024-01-22T06:51:14Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:spec':
+          'f:internalTrafficPolicy': {}
+          'f:ports':
+            .: {}
+            'k:{"port":3000,"protocol":"TCP"}':
+              .: {}
+              'f:port': {}
+              'f:protocol': {}
+              'f:targetPort': {}
+          'f:selector': {}
+          'f:sessionAffinity': {}
+          'f:type': {}
+spec:
+  clusterIP: 10.217.5.226
+  ipFamilies:
+    - IPv4
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 10.217.5.226
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: grafana
+status:
+  loadBalancer: {}
