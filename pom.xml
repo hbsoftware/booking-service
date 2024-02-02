@@ -24,6 +24,7 @@
 		<sonar.coverage.jacoco.xmlReportPaths>
 			  ../app-it/target/site/jacoco-aggregate/jacoco.xml
 		</sonar.coverage.jacoco.xmlReportPaths>
+		<version.number>${git.commit.id.abbrev}</version.number>
 
 	</properties>
 	<dependencies>
@@ -200,6 +201,7 @@
 						<artifactId>openshift-maven-plugin</artifactId>
 						<version>1.15.0</version>
 						<configuration>
+
 							<resources>
 								<controller>
 
@@ -211,6 +213,25 @@
 									</env>
 								</controller>
 							</resources>
+						</configuration>
+						
+					</plugin>
+					<plugin>
+						<groupId>pl.project13.maven</groupId>
+						<artifactId>git-commit-id-plugin</artifactId>
+						<version>2.2.4</version>
+						<executions>
+							<execution>
+								<phase>validate</phase>
+								<goals>
+									<goal>revision</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<dateFormat>yyyyMMdd-HHmmss</dateFormat><!--  human-readable part of the version number -->
+							<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+							<generateGitPropertiesFile>false</generateGitPropertiesFile><!-- somehow necessary. otherwise the variables are not available in the pom -->
 						</configuration>
 					</plugin>
 				</plugins>

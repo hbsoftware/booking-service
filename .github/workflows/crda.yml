@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *'  # every day at midnight
 
 env:
-  PROJECT_DIR: spring-petclinic
+  PROJECT_DIR: booking-service
 
 jobs:
   test:
