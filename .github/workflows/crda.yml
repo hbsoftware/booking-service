@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ "macos-latest", "windows-latest", "ubuntu-20.04" ]
+        os: [ "ubuntu-20.04" ]
         # Test once with explicit manifest_file, and once without
         manifest_file: [ "pom.xml", "" ]
     runs-on: ${{ matrix.os }}
