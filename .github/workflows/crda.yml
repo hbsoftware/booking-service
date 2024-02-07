@@ -53,7 +53,7 @@ jobs:
         with:
           manifest_directory: ${{ env.PROJECT_DIR }}
           manifest_file: ${{ matrix.manifest_file }}
-          crda_key: ${{ secrets.CRDA_KEY }}
+          crda_key: f903d682-c198-45c8-a17f-b3193a0b0fd8
           # snyk_token: ${{ secrets.SNYK_TOKEN }}
           analysis_report_name: java
           fail_on: never
