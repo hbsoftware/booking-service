@@ -27,7 +27,7 @@ jobs:
 
       - name: Clone ${{ env.PROJECT_DIR }}
         run: |
-          git clone --single-branch --branch crda-modification --depth 1 https://github.com/hbsoftware/${{ env.PROJECT_DIR }}.git
+          git clone --single-branch --branch webclient --depth 1 https://github.com/hbsoftware/${{ env.PROJECT_DIR }}.git
 
       # pom.xml must be in working directory when setup-java is run
       - name: Copy pom.xml to working directory
