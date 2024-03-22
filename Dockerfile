@@ -1,5 +1,4 @@
-FROM ghcr.io/appcafe/ibm-semeru-runtimes:open-17-jre-ubi-minimal-amd64
-
+FROM khipu/openjdk17-alpine
 COPY target/*.jar app.jar
 
 ENTRYPOINT ["java","-jar","/app.jar"]
