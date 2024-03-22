@@ -57,7 +57,7 @@ on:
   workflow_dispatch:
   push:
     # Edit to the branch(es) you want to build and deploy on each push.
-    branches: [ "main" ]
+    branches: [ "webclient" ]
 
 jobs:
   # 🖊️ EDIT if you want to run vulnerability check on your project before deploying
@@ -66,7 +66,6 @@ jobs:
   #
   # TODO: Make sure to add 'CRDA Scan' starter workflow from the 'Actions' tab.
   # For guide on adding new starter workflow visit https://docs.github.com/en/github-ae@latest/actions/using-workflows/using-starter-workflows
-
   crda-scan:
     uses: ./.github/workflows/crda.yml
     secrets:
@@ -78,7 +77,6 @@ jobs:
     # needs: crda-scan
     name: Build and deploy to OpenShift
     runs-on: ubuntu-20.04
-    environment: production
 
     outputs:
       ROUTE: ${{ steps.deploy-and-expose.outputs.route }}
