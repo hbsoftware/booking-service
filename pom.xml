@@ -148,6 +148,7 @@
 					<excludeDockerCompose>true</excludeDockerCompose>
 				</configuration>
 			</plugin>
+		    
 			<plugin>
 				<groupId>org.eclipse.jkube</groupId>
 				<artifactId>kubernetes-maven-plugin</artifactId>

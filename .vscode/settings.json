@@ -1,5 +1,6 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
     "java.configuration.updateBuildConfiguration": "interactive",
-    "redHatDependencyAnalytics.exhortSnykToken": "f903d682-c198-45c8-a17f-b3193a0b0fd8"
+    "redHatDependencyAnalytics.exhortSnykToken": "f903d682-c198-45c8-a17f-b3193a0b0fd8",
+    "docker.commands.attach": "${containerCommand} exec -it ${containerId} ${shellCommand}"
 }
