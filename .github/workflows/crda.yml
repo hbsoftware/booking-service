@@ -9,7 +9,7 @@ on:
     CRDA_KEY:
       required: true
 env:
-  PROJECT_DIR: .
+  PROJECT_DIR: "booking-service"
 
 jobs:
   test:
