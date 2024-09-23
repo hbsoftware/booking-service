@@ -143,13 +143,13 @@ jobs:
       with:
         image: ${{ env.APP_NAME }}
         tags: ${{ env.IMAGE_TAGS }}
-        workdir: ../
-        context: ../
+        workdir: .
+        context: .
         # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
         # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
         # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
-          ../Dockerfile
+          booking-service/Dockerfile
 
     # https://github.com/redhat-actions/push-to-registry#readme
     - name: Push to registry
